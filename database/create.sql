@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS `objects` (
   `work` int(11) NOT NULL,
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
+  `date_real_end` date DEFAULT NULL,
   `foreman_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
