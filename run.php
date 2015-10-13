@@ -61,12 +61,12 @@ foreach ($views as $view) {
 	$file = fopen($filename, "r") or die("Unable to open file!");
 	$contents = fread($file, filesize($filename));
 	fclose($file);
-	$result = $mysqli->query($contents);
+	$result = $mysqli->multi_query($contents);
 	if (!$result) {
 		die('Неверный запрос: ' . $mysqli->error);
 	}
 }
-
+while($mysqli->next_result()) $mysqli->store_result();
 
 //Generate data
 if (isset($_POST["plan"])) {
