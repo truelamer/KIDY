@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `objects` (
   `date_start` date NOT NULL,
   `date_end` date NOT NULL,
   `date_real_end` date DEFAULT NULL,
-  `foreman_id` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
@@ -41,7 +40,6 @@ CREATE TABLE IF NOT EXISTS `payments` (
   `worker_id` int(11) NOT NULL,
   `object_id` int(11) NOT NULL,
   `amount` int(11) NOT NULL,
-  `date` date NOT NULL,
   PRIMARY KEY (`id`),
   KEY `worker_id` (`worker_id`),
   KEY `object_id` (`object_id`)
