@@ -62,18 +62,9 @@ AS
 
 FROM 
 	objects
-	
-LEFT JOIN
-	objects_workers
-ON objects.id = objects_workers.object_id
-
-LEFT JOIN workers ON workers.id = objects_workers.worker_id
 
 LEFT JOIN purchases
 ON purchases.object_id = objects.id
-
-LEFT JOIN payments
-ON payments.object_id = objects.id
 
 GROUP BY objects.id;
  
