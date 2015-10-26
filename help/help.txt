@@ -3,10 +3,10 @@
 	session.save_path = "Z:/tmp"
 	zend_extension="Z:\usr\local\php5\ext\php_xdebug-2.2.0-5.3-vc9.dll"
 	
-2)	Создайте папку, где будет храниться скрипт и данные, например Z:\PHP Scripts\analytics
+2)	Создайте папку, где будет храниться скрипт и данные, например Z:\PHP Scripts\KIDY
 
 3)	Открыть консоль, перейте в папку
-cd /D Z:\PHP Scripts\analytics
+cd /D Z:\PHP Scripts\KIDY
 	
 4)	Запустить скрипт
 Z:\usr\local\php5\php.exe script\run.php dbuser=root dbpass="" dbname=analytics plan=data\plans\zero_balance.php models=data\models\models.php structure=data\structure\create.sql views[]=data\views\material_balances.sql views[]=data\views\work_balances.sql views[]=data\views\balances.sql
