@@ -127,7 +127,8 @@ for ($i=1; $i <= $objects_count; $i++) {
 	$work_balance = Model::factory('WorkBalances')->find_one($i);
 	$material_balance = Model::factory('MaterialBalances')->find_one($i);
 	if (($object->date_start>=$start0) and ($object->date_start<=$end0)) {
-			$object->work = $object->work*1.1+$object->material*0.1;
+			$object->work = $object->work*1.1;
+			$object->material = $object->material*1.1;
 			$object->save();
 	}	
 }
