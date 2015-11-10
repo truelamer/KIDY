@@ -1,10 +1,17 @@
-Запускаем mysql
+Используем план генерации broke_build.php
+Z:\usr\local\php5\php.exe script\run.php dbuser=root dbpass="" dbname=analytics plan=data\plans\broke_build.php models=data\models\models.php structure=data\structure\create.sql views[]=data\views\material_balances.sql views[]=data\views\work_balances.sql views[]=data\views\balances.sql
+
+
+Запускаем mysql из консоли
 D:\Projects\Denwer\usr\local\mysql-5.5\bin\mysql.exe -u root
 
-Ставим 
+
+Ставим уровень изоляции
 set global transaction isolation level read uncommitted;
 
+
 Перелогиниваемся
+
 
 В одном окне
 START TRANSACTION; select sleep(10); update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1;COMMIT;
