@@ -1,0 +1,15 @@
+Запускаем mysql
+D:\Projects\Denwer\usr\local\mysql-5.5\bin\mysql.exe -u root
+
+Ставим 
+set global transaction isolation level read uncommitted;
+
+Перелогиниваемся
+
+В одном окне
+START TRANSACTION; select sleep(10); update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1; update purchases set cost=2; update purchases set cost=1;COMMIT;
+
+В другом окне несколько раз подряд
+START TRANSACTION; select sum(cost) from purchases; COMMIT;
+
+По идее должно вывести 10000, но выводит неверные данные
