@@ -9,4 +9,4 @@
 cd /D Z:\PHP Scripts\KIDY
 	
 4)	Запустить скрипт
-Z:\usr\local\php5\php.exe script\run.php dbuser=root dbpass="" dbname=analytics plan=data\plans\zero_balance.php models=data\models\models.php structure=data\structure\create.sql views[]=data\views\material_balances.sql views[]=data\views\work_balances.sql views[]=data\views\balances.sql
+Z:\usr\local\php5\php.exe script\run.php dbuser=root dbpass="" dbname=analytics plan=data\plans\zero_balance.php models=data\models\models.php structure=data\structure\create.sql views[]=data\views\material_balances.sql views[]=data\views\work_balances.sql views[]=data\views\balances.sql views[]=data\views\foremans.sql views[]=data\views\managers.sql

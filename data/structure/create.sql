@@ -1,5 +1,16 @@
 --
--- Table structure for table `objects`
+-- Структура таблицы `actions`
+--
+
+CREATE TABLE IF NOT EXISTS `actions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+
+--
+-- Структура таблицы `objects`
 --
 
 CREATE TABLE IF NOT EXISTS `objects` (
@@ -13,11 +24,8 @@ CREATE TABLE IF NOT EXISTS `objects` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
--- --------------------------------------------------------
-
 --
--- Table structure for table `objects_workers`
+-- Структура таблицы `objects_workers`
 --
 
 CREATE TABLE IF NOT EXISTS `objects_workers` (
@@ -29,10 +37,8 @@ CREATE TABLE IF NOT EXISTS `objects_workers` (
   KEY `worker_id` (`worker_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `payments`
+-- Структура таблицы `payments`
 --
 
 CREATE TABLE IF NOT EXISTS `payments` (
@@ -43,12 +49,22 @@ CREATE TABLE IF NOT EXISTS `payments` (
   PRIMARY KEY (`id`),
   KEY `worker_id` (`worker_id`),
   KEY `object_id` (`object_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-
--- --------------------------------------------------------
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Table structure for table `professions`
+-- Структура таблицы `permissions`
+--
+
+CREATE TABLE IF NOT EXISTS `permissions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `worker_id` int(11) NOT NULL,
+  `object_id` int(11) NOT NULL,
+  `action_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+
+--
+-- Структура таблицы `professions`
 --
 
 CREATE TABLE IF NOT EXISTS `professions` (
@@ -57,16 +73,14 @@ CREATE TABLE IF NOT EXISTS `professions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
-
--- --------------------------------------------------------
-
 --
--- Table structure for table `purchases`
+-- Структура таблицы `purchases`
 --
 
 CREATE TABLE IF NOT EXISTS `purchases` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `object_id` int(11) NOT NULL,
+  `worker_id` int(11) NOT NULL,
   `material` varchar(255) NOT NULL,
   `cost` int(11) NOT NULL,
   PRIMARY KEY (`id`),
@@ -74,12 +88,7 @@ CREATE TABLE IF NOT EXISTS `purchases` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 --
--- Dumping data for table `purchases`
---
-
-
---
--- Table structure for table `workers`
+-- Структура таблицы `workers`
 --
 
 CREATE TABLE IF NOT EXISTS `workers` (
@@ -90,4 +99,3 @@ CREATE TABLE IF NOT EXISTS `workers` (
   PRIMARY KEY (`id`),
   KEY `profession_id` (`profession_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
-

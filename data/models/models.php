@@ -12,4 +12,7 @@ class MaterialBalances extends Model {
 class WorkBalances extends Model {
 	public static $_id_column = 'object_id';
 }
+class Actions extends Model {}
+class Permissions extends Model {}
+class Foremans extends Model {}
 ?>

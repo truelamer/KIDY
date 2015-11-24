@@ -4,7 +4,11 @@
 $objects_count = 5;
 $professtions_count = 5;
 $workers_count = 10;
-$foremans_count = 2;
+
+$foremans_count = 5;
+$managers_count = 2;
+$special_professions_count = 2;
+
 $min_worker_salary = 1;
 $max_worker_salary = 5;
 $min_worker_payment = 10;
@@ -15,9 +19,31 @@ $max_purchases_on_object = 2;
 $start_date = "2010-01-01";
 $end_date = "now";
 
+
+//Generate Actions
+$action_names = array( 
+	"watch object",    //1
+	"edit object",     //2
+	"add purchases",   //3
+	"watch purchases", //4
+	"edit purchases"   //5
+);
+foreach ($action_names as $action_name) {
+	$action = Model::factory('Actions')->create();
+	$action->name = $action_name;
+	$action->save();
+}
+
+
 //Generate Foreman Profession
 $profession = Model::factory('Professions')->create();
 $profession->name = "foreman";
+$profession->save();
+
+
+//Generate Manager Profession
+$profession = Model::factory('Professions')->create();
+$profession->name = "manager";
 $profession->save();
 
 
@@ -39,11 +65,21 @@ for ($i=0; $i < $foremans_count; $i++) {
 }
 
 
+//Generate Managers
+for ($i=0; $i < $managers_count; $i++) {
+	$worker = Model::factory('Workers')->create();
+	$worker->name = $faker->name;
+	$worker->salary = 0;
+	$worker->profession_id = Model::factory('Professions')->where('name', 'manager')->find_one()->id;
+	$worker->save();
+}
+
+
 //Generate Other Workers
 for ($i=0; $i < $workers_count; $i++) {
 	$worker = Model::factory('Workers')->create();
 	$worker->name = $faker->name;
-	$min_id = 2;
+	$min_id = $special_professions_count + 1;
 	$max_id = Model::factory('Professions')->count();
 	$worker->profession_id = rand($min_id, $max_id);
 	$salary = array(0, rand($min_worker_salary, $max_worker_salary));
@@ -53,6 +89,7 @@ for ($i=0; $i < $workers_count; $i++) {
 
 
 //Add Foremans To Objects
+//and permissions to Foremans
 for ($i=1; $i <= $objects_count; $i++) {
 	$min_id  = 1;
 	$max_id  = $foremans_count;
@@ -60,12 +97,64 @@ for ($i=1; $i <= $objects_count; $i++) {
 	$objects_workers->object_id = $i;
 	$objects_workers->worker_id = rand($min_id, $max_id);;
 	$objects_workers->save();	
+	
+	$permission = Model::factory('Permissions')->create();
+	$permission->worker_id = $objects_workers->worker_id;
+	$permission->object_id = $objects_workers->object_id;
+	$permission->action_id = 1; //watch object
+	$permission->save();
+	
+	$permission = Model::factory('Permissions')->create();
+	$permission->worker_id = $objects_workers->worker_id;
+	$permission->object_id = $objects_workers->object_id;
+	$permission->action_id = 4; //watch purchases
+	$permission->save();
+	
+	$permission = Model::factory('Permissions')->create();
+	$permission->worker_id = $objects_workers->worker_id;
+	$permission->object_id = $objects_workers->object_id;
+	$permission->action_id = 3; //add purchases
+	$permission->save();	
+}
+
+//Add Managers To Objects
+for ($i=1; $i <= $objects_count; $i++) {
+	$min_id  = $foremans_count + 1;
+	$max_id  = $foremans_count + $managers_count;
+	$objects_workers = Model::factory('ObjectsWorkers')->create();
+	$objects_workers->object_id = $i;
+	$objects_workers->worker_id = rand($min_id, $max_id);;
+	$objects_workers->save();	
+	
+	$permission = Model::factory('Permissions')->create();
+	$permission->worker_id = $objects_workers->worker_id;
+	$permission->object_id = $objects_workers->object_id;
+	$permission->action_id = 1; //watch object
+	$permission->save();
+	
+	$permission = Model::factory('Permissions')->create();
+	$permission->worker_id = $objects_workers->worker_id;
+	$permission->object_id = $objects_workers->object_id;
+	$permission->action_id = 2; //edit object
+	$permission->save();
+
+	$permission = Model::factory('Permissions')->create();
+	$permission->worker_id = $objects_workers->worker_id;
+	$permission->object_id = $objects_workers->object_id;
+	$permission->action_id = 4; //watch purchaces
+	$permission->save();	
+	
+	$permission = Model::factory('Permissions')->create();
+	$permission->worker_id = $objects_workers->worker_id;
+	$permission->object_id = $objects_workers->object_id;
+	$permission->action_id = 5; //edit purchaces
+	$permission->save();	
 }
 
 
 //Add Each Other Worker To Objects
-$min_id = $foremans_count+1;
-$max_id = $workers_count+$foremans_count;
+$min_id = $foremans_count+$managers_count+1;
+$max_id = $workers_count+$foremans_count+$managers_count;
 for ($i=$min_id; $i <= $max_id; $i++) {
 	$objects_workers = Model::factory('ObjectsWorkers')->create();	
 	$objects_workers->object_id = rand(1,$objects_count);
@@ -90,6 +179,7 @@ for ($i=1; $i <= $objects_count; $i++) {
 	for ($k=0; $k < rand(1, $max_purchases_on_object); $k++) {
 		$purchase = Model::factory('Purchases')->create();
 		$purchase->object_id = $i;
+		$purchase->worker_id = Model::factory('Foremans')->where('object_id', $i)->find_one()->worker_id;
 		$purchase->material = $faker->word;
 		$purchase->cost = rand($min_material_cost, $max_material_cost);
 		$purchase->save();
